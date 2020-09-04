@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- There are numerous attributes which each correspond to a flag that can be passed to the CLI -->
+<!-- Colors will add some nice color output when running tests -->
+<!-- Verbose will give us some additional information about the test statuses -->
+<phpunit
+		colors="true"
+		verbose="true">
+
+	<!-- Test Suites are directories that tests reside in, you may have as many testsuites elements as needed -->
+	<testsuites>
+		<!-- The name attribute is require, but is arbitrary -->
+		<testsuite name="Test suite">
+
+			<!-- Setting this to tests will run all files contained in the tests directory that end in the word "test" -->
+			<!-- If a test file does not end in test you may add the file by name using a suffix attribute on the directory tag -->
+			<!-- suffix=".php" would run all php files in the tests directory -->
+			<!-- suffix="Test.php" would run all php files ending in Test in the tests directory which is the default behavior -->
+			<directory>tests</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

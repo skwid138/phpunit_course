@@ -9,3 +9,6 @@ vendor/
 .DS_Store?
 .localized
 .Spotlight-V100
+
+#PHPUnit cache
+.phpunit.result.cache
