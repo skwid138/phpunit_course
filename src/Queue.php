@@ -8,9 +8,7 @@
 class Queue {
 
 	/**
-	 * Queue items
-	 *
-	 * @var array
+	 * @var array List of queue items
 	 */
 	protected $items = [];
 

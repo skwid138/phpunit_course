@@ -4,54 +4,62 @@ use PHPUnit\Framework\TestCase;
 
 class QueueTest extends TestCase {
 	/**
-	 * Because this test method is returning data
-	 * to be used by another test method it is known as a producer
+	 * @var Queue
+	 */
+	protected $queue;
+
+	/**
+	 * This method runs before all tests
+	 */
+	protected function setUp(): void {
+		$this->queue = new Queue;
+	}
+
+	/**
+	 * This method runs after all tests have been completed
 	 *
-	 * @return Queue This should be an empty Queue object
+	 * In practice this is almost never used unless there are
+	 * a lot of objects being created and sitting in memory
+	 *
+	 * This method is useful if you're creating external resources
+	 * like writing to a file or opening a network socket
+	 */
+	protected function tearDown(): void {
+		unset($this->queue);
+	}
+
+	/**
+	 *
 	 */
 	public function testNewQueueIsEmpty() {
-		// Instantiate Queue class
-		$queue = new Queue;
-
 		// An empty queue should have 0 items
-		$this->assertEquals(0, $queue->getCount());
-
-		return $queue;
+		$this->assertEquals(0, $this->queue->getCount());
 	}
 
 	/**
-	 * By adding "@depends" to the doc block the return of the method mentioned
-	 * will be passed as an argument to this method
-	 * This can be useful to reduce duplicated code
-	 * 
-	 * This test is now known as a consumer as it takes data in from a previous test
-	 * @depends testNewQueueIsEmpty
 	 *
-	 * @param Queue $queue This should be an empty Queue object
-	 *
-	 * @return Queue This should be a Queue object with exactly one Banjo inside
 	 */
-	public function testAnItemIsAddedToTheQueue(Queue $queue) {
+	public function testAnItemIsAddedToTheQueue() {
 		// Add Banjo to the queue
-		$queue->push('Banjo');
+		$this->queue->push('Banjo');
 
 		// Make sure the queue has the dog we added
-		$this->assertEquals(1, $queue->getCount());
-
-		return $queue;
+		$this->assertEquals(1, $this->queue->getCount());
 	}
 
 	/**
-	 * @depends testAnItemIsAddedToTheQueue
 	 *
-	 * @param Queue $queue This should be a Queue object with exactly one Banjo inside
 	 */
-	public function testAnItemIsRemovedFromTheQueue(Queue $queue) {
+	public function testAnItemIsRemovedFromTheQueue() {
+
+		// Add Banjo to the queue
+		$this->queue->push('Banjo');
+
 		// Remove Banjo from the queue
-		$item = $queue->pop();
+		$item = $this->queue->pop();
 
 		// Make sure the queue is empty
-		$this->assertEquals(0, $queue->getCount());
+		$this->assertEquals(0, $this->queue->getCount());
 
 		// Make sure Banjo is still Banjo
 		$this->assertEquals('Banjo', $item);
