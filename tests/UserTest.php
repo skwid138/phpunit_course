@@ -4,10 +4,6 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase {
 	public function testReturnsFullName() {
-
-		// Import User class
-		require 'User.php';
-
 		// Instantiate User class
 		$user = new User;
 

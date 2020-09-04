@@ -3,9 +3,11 @@
 <!-- There are numerous attributes which each correspond to a flag that can be passed to the CLI -->
 <!-- Colors will add some nice color output when running tests -->
 <!-- Verbose will give us some additional information about the test statuses -->
+<!-- Bootstrap will allow us to run composer's autoloader before the tests making it so we no longer need to require the files being tested -->
 <phpunit
 		colors="true"
-		verbose="true">
+		verbose="true"
+		bootstrap="vendor/autoload.php">
 
 	<!-- Test Suites are directories that tests reside in, you may have as many testsuites elements as needed -->
 	<testsuites>
