@@ -64,4 +64,15 @@ class QueueTest extends TestCase {
 		// Make sure Banjo is still Banjo
 		$this->assertEquals('Banjo', $item);
 	}
+
+	/**
+	 *
+	 */
+	public function testAnItemIsRemovedFromTheFrontOfTheQueue() {
+		$this->queue->push('Banjo');
+		$this->queue->push('Gonzo');
+
+		// The pop method should return the first item added to the queue
+		$this->assertEquals('Banjo', $this->queue->pop());
+	}
 }
