@@ -49,8 +49,14 @@ class UserTest extends TestCase {
 		// Create mock of the Mailer class
 		$mock_mailer = $this->createMock(Mailer::class);
 
-		// Update the default return of the sendMessage method from null to true
-		$mock_mailer->method('sendMessage')
+		// Setup exactly what the expected behavior with the mock should be
+		// The stub should only be run once
+		$mock_mailer->expects($this->once())
+			// The stub to be run is sendMessage
+			->method('sendMessage')
+			// The arguments being passed should be these
+			->with($this->equalTo('banjo@woof.com'), $this->equalTo('Howdy'))
+			// The stub should return true
 			->willReturn(true);
 
 		// Pass the mock Mailer class to the User class so it can be injected into the User class
