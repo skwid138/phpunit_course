@@ -38,4 +38,31 @@ class UserTest extends TestCase {
 		// Test if first name matches
 		$this->assertEquals('Alvin', $user->first_name);
 	}
+
+	/**
+	 * Test making the user
+	 */
+	public function testNotificationIsSent() {
+		// Instantiate the User class
+		$user = new User;
+
+		// Create mock of the Mailer class
+		$mock_mailer = $this->createMock(Mailer::class);
+
+		// Update the default return of the sendMessage method from null to true
+		$mock_mailer->method('sendMessage')
+			->willReturn(true);
+
+		// Pass the mock Mailer class to the User class so it can be injected into the User class
+		$user->setMailer($mock_mailer);
+		// The setMailer method is typed to only take arguments of the Mailer class type
+		// using a mocked class still achieves this... tricky
+
+		// Set the User class's email property
+		$user->email = 'banjo@woof.com';
+
+		// Assert the return value of the User class's notify method
+		// (which is a wrapper of the Mailer class's sendMessage method)
+		$this->assertTrue($user->notify('Howdy'));
+	}
 }
