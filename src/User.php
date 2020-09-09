@@ -20,7 +20,7 @@ class User {
 	/**
 	 * @var null|string $email Email address
 	 */
-	public ?string $email;
+	public /*?string*/ $email;
 
 	/**
 	 * @var null|Mailer $mailer Mailer class object
