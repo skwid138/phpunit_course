@@ -113,6 +113,10 @@ class UserTest extends TestCase {
 		$mock_mailer = $this->getMockBuilder(Mailer::class)
 			->onlyMethods([])
 			->getMock();
+
+		// I also found this method setMethodsExcept, but did not try it
+
+
 	// ** NOT PART OF THE LESSON **
 
 		// Pass the mock Mailer class to the User class so it can be injected into the User class
