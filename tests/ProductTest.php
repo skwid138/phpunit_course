@@ -3,6 +3,11 @@
 use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase {
+	/**
+	 * Use reflection to test the values of protected properties
+	 *
+	 * @throws ReflectionException
+	 */
 	public function testIDIsAnInteger() {
 		// Instantiate the Product class
 		$product = new Product;
