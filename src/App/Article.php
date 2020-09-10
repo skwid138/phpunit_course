@@ -21,6 +21,9 @@ class Article {
 		// Include adjacent spaces, new lines, and tabs in this search - this is what the '+' does
 		$slug = preg_replace('/\s+/', '_', $slug);
 
+		// Remove non-URL friendly characters - \w includes letters number and underscore - ^ negates it, meaning find everything that isn't
+		$slug = preg_replace('/[^\w]+/', '', $slug);
+
 		// Remove whitespace (spaces) leading and trailing the slug string
 		$slug = trim($slug, '_');
 
