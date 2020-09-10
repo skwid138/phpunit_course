@@ -57,4 +57,35 @@ class ItemTest extends TestCase {
 		// Assert the token is a string
 		$this->assertIsString($result);
 	}
+
+	/**
+	 * Testing private methods that accept arguments
+	 *
+	 * Private methods should almost always be excluded from testing
+	 * They can be tested indirectly by the public methods that call them
+	 * If this is difficult to achieve then the class may need to be refactored or even be split into another class
+	 *
+	 * @throws ReflectionException
+	 */
+	public function testPrefixedTokenStartsWithPrefix() {
+		// Instantiate the Item class
+		$item = new Item;
+
+		// Recreate the Item class by reflection
+		$reflector = new ReflectionClass(Item::class);
+
+		// Get the private method
+		$method = $reflector->getMethod('getPrefixedToken');
+		// Make the private method accessible
+		$method->setAccessible(true);
+
+		// Call the method and pass in the arguments needed
+		// To pass arguments is the invokeArgs() method instead of invoke()
+		// Similar to without arguments the Item class object is passed,
+		// but this time an array of arguments is included as well
+		$result = $method->invokeArgs($item, ['example']);
+
+		// Assert the value returned will start with the prefix passed to the method
+		$this->assertStringStartsWith('example', $result);
+	}
 }
