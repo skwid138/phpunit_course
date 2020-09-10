@@ -28,9 +28,26 @@ class ArticleTest extends TestCase {
 
 	public function testSlugHasSpacesReplacedByUnderscores() {
 		// Set title property of the Article class
-		$this->article->title = 'Learn how you can earn $64,000 in just two weeks!';
+		$this->article->title = "Learn how you can earn $64,000 in just two weeks!";
 
 		// Assert the slug is equal to the title string with underscores
-		$this->assertEquals($this->article->getSlug(), 'Learn_how_you_can_earn_$64,000_in_just_two_weeks!');
+		$this->assertEquals('Learn_how_you_can_earn_$64,000_in_just_two_weeks!', $this->article->getSlug());
+	}
+
+	public function testSlugHasWhitespaceReplacedBySingleUnderscore() {
+		// Set title property of the Article class with multiple spaces and a new line character
+		$this->article->title = "Learn     how you    can earn   \n  $64,000 in just two weeks!"; // /n is not interpreted by php as a new line character when wrapped in single quotes
+
+		// Assert that multiple spaces, new lines, and tabs will be replaced with a
+		// single underscore even if there are multiple of these grouped together
+		$this->assertEquals('Learn_how_you_can_earn_$64,000_in_just_two_weeks!', $this->article->getSlug());
+	}
+
+	public function testSlugDoesNotStartOrEndWithAnUnderscore() {
+		// Set title property of the Article class with spaces at the start and end of the string
+		$this->article->title = " Learn how you can earn $64,000 in just two weeks!  ";
+
+		// Assert that spaces preceding and following the string will be trimmed
+		$this->assertEquals('Learn_how_you_can_earn_$64,000_in_just_two_weeks!', $this->article->getSlug());
 	}
 }

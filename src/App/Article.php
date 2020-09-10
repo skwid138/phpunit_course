@@ -17,10 +17,14 @@ class Article {
 		// Assign the title property's value to the slug
 		$slug = $this->title;
 
-		// Replace spaces with underscores
-		$slug = str_replace(' ', '_', $slug);
+		// Replace spaces, new lines, and tabs with an underscore - this is what '\s' does
+		// Include adjacent spaces, new lines, and tabs in this search - this is what the '+' does
+		$slug = preg_replace('/\s+/', '_', $slug);
 
-		// Return the URL friendly slug
+		// Remove whitespace (spaces) leading and trailing the slug string
+		$slug = trim($slug, '_');
+
+		// Return the mostly URL friendly slug
 		return $slug;
 
 
