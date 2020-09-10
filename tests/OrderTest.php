@@ -3,6 +3,14 @@
 use PHPUnit\Framework\TestCase;
 
 class OrderTest extends TestCase {
+	/**
+	 * This is one way to use Mockery, the other is by extending the
+	 * MockeryTestCase class instead of PHPUnit's TestCase class (see ExampleTest.php)
+	 */
+	public function tearDown(): void {
+		Mockery::close();
+	}
+
 	public function testOrderIsProcessed() {
 		// The value of the test order
 		$order_amount = 200;
@@ -34,6 +42,36 @@ class OrderTest extends TestCase {
 			->with($this->equalTo($order_amount))
 			// Update the stub to return true instead of null
 			->willReturn(true);
+
+		// Instantiate the Order class
+		$order = new Order($gateway);
+
+		// Set the order's amount
+		$order->amount = $order_amount;
+
+		// A successful call to order-process will return true
+		$this->assertTrue($order->process());
+	}
+
+	/**
+	 * A duplicated version of the testOrderIsProcessed test demonstrating
+	 * how to use mockery instead of the PHPUnit mocks
+	 */
+	public function testOrderIsProcessedUsingMockery() {
+		// The value of the test order
+		$order_amount = 200;
+
+		// Create a mock object for PaymentGateway
+		$gateway = Mockery::mock('PaymentGateway');
+
+		// Configure the charge stubb on the mocked PaymentGateway object
+		$gateway->shouldReceive('charge')
+			// The stubbed method should run only once
+			->once()
+			// The stubbed method should receive the order value passed to the order class
+			->with($order_amount)
+			// The value the stubbed method will return
+			->andReturn(true);
 
 		// Instantiate the Order class
 		$order = new Order($gateway);

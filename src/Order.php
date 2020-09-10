@@ -6,7 +6,6 @@
  * An example order class
  */
 class Order {
-
 	/**
 	 * @var int $amount The value of the order
 	 */
@@ -20,9 +19,12 @@ class Order {
 	/**
 	 * Constructor
 	 *
+	 * @param PaymentGateway $gateway Payment gateway object
+	 *
 	 * @return void
 	 */
 	public function __construct(PaymentGateway $gateway) {
+		// Set gateway property
 		$this->gateway = $gateway;
 	}
 
