@@ -3,19 +3,34 @@
 use PHPUnit\Framework\TestCase;
 
 class ArticleTest extends TestCase {
-	public function testTitleIsEmptyByDefault() {
-		// Instantiate the Article class
-		$article = new App\Article;
+	/**
+	 * @var \App\Article $article Article class object
+	 */
+	protected $article;
 
+	/**
+	 * This method runs before EVERY test
+	 */
+	protected function setUp(): void {
+		// Instantiate the Article class
+		$this->article = new App\Article;
+	}
+
+	public function testTitleIsEmptyByDefault() {
 		// Assert the title property will be null or empty
-		$this->assertEmpty($article->title);
+		$this->assertEmpty($this->article->title);
 	}
 
 	public function testSlugIsEmptyWithNoTitle() {
-		// Instantiate the Article class
-		$article = new App\Article;
-
 		// Assert the article's slug is identical to an empty string
-		$this->assertSame($article->getSlug(), '');
+		$this->assertSame($this->article->getSlug(), '');
+	}
+
+	public function testSlugHasSpacesReplacedByUnderscores() {
+		// Set title property of the Article class
+		$this->article->title = 'Learn how you can earn $64,000 in just two weeks!';
+
+		// Assert the slug is equal to the title string with underscores
+		$this->assertEquals($this->article->getSlug(), 'Learn_how_you_can_earn_$64,000_in_just_two_weeks!');
 	}
 }
