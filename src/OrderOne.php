@@ -5,7 +5,7 @@
  *
  * An example order class
  */
-class Order {
+class OrderOne {
 	/**
 	 * @var int $amount The value of the order
 	 */

@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class OrderTest extends TestCase {
+class OrderOneTest extends TestCase {
 	/**
 	 * This is one way to use Mockery, the other is by extending the
 	 * MockeryTestCase class instead of PHPUnit's TestCase class (see ExampleTest.php)
@@ -44,7 +44,7 @@ class OrderTest extends TestCase {
 			->willReturn(true);
 
 		// Instantiate the Order class
-		$order = new Order($gateway);
+		$order = new OrderOne($gateway);
 
 		// Set the order's amount
 		$order->amount = $order_amount;
@@ -74,7 +74,7 @@ class OrderTest extends TestCase {
 			->andReturn(true);
 
 		// Instantiate the Order class
-		$order = new Order($gateway);
+		$order = new OrderOne($gateway);
 
 		// Set the order's amount
 		$order->amount = $order_amount;
