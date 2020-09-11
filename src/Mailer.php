@@ -46,7 +46,7 @@ class Mailer {
 		// Delay execution 3 seconds to simulate actual work being done
 		sleep(3);
 
-		// Output the message
+		// Output the message (to the terminal during testing)
 		echo("Send: '$message' to '$email'");
 
 		return true;
