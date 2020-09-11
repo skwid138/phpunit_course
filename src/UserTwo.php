@@ -47,6 +47,8 @@ class UserTwo {
 	 * @return boolean
 	 */
 	public function notify(string $message): bool {
-		return $this->mailer::send($this->email, $message);
+		// Commented out the static keyword in the mailer class
+		//return $this->mailer::send($this->email, $message);
+		return $this->mailer->send($this->email, $message);
 	}
 }

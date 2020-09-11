@@ -10,8 +10,12 @@ class UserTwoTest extends TestCase {
 		// Create a mock object of the Mailer class
 		$mailer = $this->createMock(Mailer::class);
 
-		// PHPUnit does NOT stub static methods using PHPUnit so this will fail
+		// PHPUnit does NOT stub static methods using PHPUnit so calling them will throw a warning
 
+		// Configure the stub
+		$mailer->expects($this->once())
+			->method('send')
+			->willReturn(true);
 
 		// Pass the mock to the UserTwo class
 		$user->setMailer($mailer);
