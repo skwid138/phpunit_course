@@ -80,4 +80,15 @@ class UserTwo {
 		//return $this->mailer::send($this->email, $message);
 		return $this->mailer->send($this->email, $message);
 	}
+
+	/**
+	 * Send the user a message
+	 *
+	 * @param string $message The message
+	 *
+	 * @return boolean
+	 */
+	public function notify_two(string $message) {
+		return MailerTwo::send($this->email, $message);
+	}
 }
