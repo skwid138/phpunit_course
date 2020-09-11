@@ -10,7 +10,7 @@ class QueueTest extends TestCase {
 	protected $queue;
 
 	/**
-	 * This method runs before every tests
+	 * This method runs before every test
 	 */
 	protected function setUp(): void {
 		// Empty the queue after each test has run
