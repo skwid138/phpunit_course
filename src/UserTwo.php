@@ -18,6 +18,12 @@ class UserTwo {
 	protected ?Mailer $mailer;
 
 	/**
+	 * @var callable $mailer_callable Mailer callable
+	 */
+	protected $mailer_callable;
+
+
+	/**
 	 * Constructor
 	 *
 	 * @param string $email The user's email
@@ -26,6 +32,29 @@ class UserTwo {
 	 */
 	public function __construct(string $email) {
 		$this->email = $email;
+	}
+
+	/**
+	 * Mailer callable setter
+	 *
+	 * @param callable $mailer_callable A Mailer callable
+	 *
+	 * @return void
+	 */
+	public function setMailerCallable(callable $mailer_callable) {
+		$this->mailer_callable = $mailer_callable;
+	}
+
+	/**
+	 * Send the user a message
+	 *
+	 * @param string $message The message
+	 *
+	 * @return boolean
+	 */
+	public function notification(string $message) {
+		// Pass in a function followed by any arguments it should receive
+		return call_user_func($this->mailer_callable, $this->email, $message);
 	}
 
 	/**
